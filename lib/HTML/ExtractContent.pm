@@ -5,7 +5,7 @@ use HTML::ExtractContent::Util;
 use List::Util qw(reduce);
 use utf8;
 use base qw(Class::Accessor::Lvalue::Fast);
-our $VERSION = '0.08';
+our $VERSION = '0.09';
 __PACKAGE__->mk_accessors(qw(opt content));
 
 sub new {
