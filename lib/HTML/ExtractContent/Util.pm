@@ -14,7 +14,7 @@ sub strip {
 
 sub strip_tags {
     my $page = shift;
-    $page =~ s/<[^>\s]+(?:\s+[^>"]+(?:=(?:"[^"]*"|'[^']*'|\S+))?)*>//gs;
+    $page =~ s!<[^>\s]+(?:\s+[^>"]+(?:=(?:"[^"]*"|'[^']*'|\S+))?)*/?>!!gs;
     return $page;
 }
 
