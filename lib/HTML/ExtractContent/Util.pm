@@ -4,7 +4,9 @@ use warnings;
 use Exporter::Lite;
 use utf8;
 
+use Encode qw/encode_utf8 decode_utf8/;
 use HTML::Entities;
+use HTML::Strip;
 
 sub strip {
     my $str = shift;
@@ -14,8 +16,12 @@ sub strip {
 
 sub strip_tags {
     my $page = shift;
-    $page =~ s!<[^>\s]+(?:\s+[^>"]+(?:=(?:"[^"]*"|'[^']*'|\S+))?)*/?>!!gs;
-    return $page;
+
+    my $octets = encode_utf8($page);
+    my $hs = HTML::Strip->new;
+    my $stripped = $hs->parse($octets);
+
+    return decode_utf8($stripped);
 }
 
 sub eliminate_tags {
@@ -38,9 +44,29 @@ sub eliminate_br {
     return $page;
 }
 
+sub eliminate_invisible {
+    my $page = shift;
+    my $patterns = [
+        qr/<!--.*?-->/is,
+        qr/<(script|style|select|noscript)[^>]*>.*?<\/\1\s*>/is,
+        qr/<div\s[^>]*(id|class)\s*=\s*['"]?\S*(more|menu|side|navi)\S*["']?[^>]*>/is,
+    ];
+    for my $pat (@$patterns) {
+        $page =~ s/$pat//igs;
+    }
+    return $page;
+}
+
 sub extract_alt {
     my $page = shift;
-    $page =~ s/<img\s[^>]*alt\s*=\s*['"]?(.*?)["']?[^>]*>/$1/igs;
+    $page =~ s{
+        # no backgrack or otherwise the time complexity will become O(n^2)
+        <img \s [^>]* \b alt \s* = \s* (?>
+            " ([^"]*) " | ' ([^']*) ' | ([^\s"'<>]+)
+        ) [^>]* >
+    }{
+        defined $1 ? $1 : defined $2 ? $2 : $3
+    }xigse;
     return $page;
 }
 
@@ -61,7 +87,10 @@ sub decode {
 }
 
 sub to_text {
-    return decode (extract_alt shift);
+    my ($html, $opts) = @_;
+    $opts ||= {};
+    $html = extract_alt $html if $opts->{with_alt};
+    return decode $html;
 }
 
 sub match_count {
@@ -70,6 +99,6 @@ sub match_count {
     return $#list + 1;
 }
 
-our @EXPORT = qw/strip strip_tags eliminate_tags eliminate_links eliminate_forms eliminate_br extract_alt unescape reduce_ws decode to_text match_count/;
+our @EXPORT = qw/strip strip_tags eliminate_tags eliminate_links eliminate_forms eliminate_br eliminate_invisible extract_alt unescape reduce_ws decode to_text match_count/;
 
 1;

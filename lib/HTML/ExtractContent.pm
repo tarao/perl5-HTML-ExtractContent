@@ -38,7 +38,13 @@ sub new {
         title     => qr/<title[^>]*>(.*?)<\/title\s*>/is,
         headline  => qr/(<h\d\s*>\s*(.*?)\s*<\/h\d\s*>)/is,
         head      => qr/<head[^>]*>.*?<\/head\s*>/is,
-        comment   => qr/(?:<!--.*?-->|<([^>\s]+)[^>]*\s+style=['"]?[^>'"]*(?:display:\s*none|visibility:\s*hidden)[^>'"]*['"]?[^>]*>.*?<\/\1\s*>)/is,
+        comment   => qr{ (?:
+            <!-- .*? --> |
+            # remove invisible elements
+            < ( [\w:.-]+ ) \s [^>]*? style \s* = [^>]*? \b
+                (?: display \s* : \s* none | visibility \s* : \s* hidden )
+            \b [^>]* > .*? </ \1 \s* >
+        ) }xis,
         special   => qr/<![A-Za-z].*?>/is,
         useless   => [
             qr/<(script|style|select|noscript)[^>]*>.*?<\/\1\s*>/is,
