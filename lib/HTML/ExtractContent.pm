@@ -252,10 +252,10 @@ HTML::ExtractContent - An HTML content extractor with scoring heuristics
 
  use HTML::ExtractContent;
  use LWP::UserAgent;
- 
+
  my $agent = LWP::UserAgent->new;
  my $res = $agent->get('http://www.example.com/');
- 
+
  my $extractor = HTML::ExtractContent->new;
  $extractor->extract($res->decoded_content);
  print $extractor->as_text;
@@ -322,7 +322,7 @@ Copyright (C) 2008 INA Lintaro / Hatena. All rights reserved.
 
 =head2 Copyright of the original implementation
 
-Copyright (c) 2007/2008 Nakatani Shuyo / Cybozu Labs Inc. All rights reserved. 
+Copyright (c) 2007/2008 Nakatani Shuyo / Cybozu Labs Inc. All rights reserved.
 
 =head1 LICENCE
 
