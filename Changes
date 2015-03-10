@@ -1,25 +1,27 @@
 Rivision history for Perl extension HTML::ExtractContent.
 
-0.10 2010-01-20T02:25:31+0000
+{{$NEXT}}
+     - Performance improvement and modernize the code.
+0.10 2010-01-20T02:25:31Z
      - Fixed regular expression for stripping tags.
-0.09 2009-11-12T12:14:02+0000
+0.09 2009-11-12T12:14:02Z
      - Fixed MANIFEST.
-0.08 2009-08-26T08:00:00+0000
+0.08 2009-08-26T08:00:00Z
      - Fixed regular expressions and elimination of nested list.
-0.07 2009-08-26T06:32:53+0000
+0.07 2009-08-26T06:32:53Z
      - Improved tag elimination.
-0.06 2009-03-21T18:28:09+0000
+0.06 2009-03-21T18:28:09Z
      - Fixed bug: link list detection was wrong.
-0.05 2008-10-24T09:34:46+0000
+0.05 2008-10-24T09:34:46Z
      - Improved scoring algorithm.
      - Fixed typo in the documentation.
-0.04 2008-10-13T08:53:29+0000
+0.04 2008-10-13T08:53:29Z
      - Fixed bug: some continued blocks were not detected.
      - Improved message readability in the debug mode.
-0.03 2008-10-11T07:07:05+0000
+0.03 2008-10-11T07:07:05Z
      - Fixed bug: the initialization of the loop condition was wrong.
-0.02 2008-10-11T05:57:43+0000
+0.02 2008-10-11T05:57:43Z
      - Fixed Makefile.PL.
      - Added README.
-0.01 2008-10-10T06:41:47+0000
+0.01 2008-10-10T06:41:47Z
      - original version
