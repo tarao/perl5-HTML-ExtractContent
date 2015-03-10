@@ -42,7 +42,7 @@
       },
       "runtime" : {
          "requires" : {
-            "Class::Accessor::Lvalue::Fast" : "0",
+            "Class::Accessor::Lite" : "0",
             "Exporter::Lite" : "0",
             "HTML::Entities" : "0",
             "HTML::Strip" : "0"
@@ -67,7 +67,7 @@
          "web" : "https://github.com/tarao/perl5-HTML-ExtractContent"
       }
    },
-   "version" : "0.10",
+   "version" : "0.11",
    "x_authority" : "cpan:TARAO",
    "x_contributors" : [
       "tarao <tarao.gnn@gmail.com>"

@@ -14,7 +14,7 @@ use Class::Accessor::Lite (
 # lib
 use HTML::ExtractContent::Util;
 
-our $VERSION = '0.10';
+our $VERSION = '0.11';
 
 sub new {
     my ($class, $opt) = @_;
