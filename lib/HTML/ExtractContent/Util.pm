@@ -1,12 +1,15 @@
 package HTML::ExtractContent::Util;
 use strict;
 use warnings;
-use Exporter::Lite;
 use utf8;
 
+# core
 use Encode qw/encode_utf8 decode_utf8/;
-use HTML::Entities;
-use HTML::Strip;
+
+# cpan
+use Exporter::Lite;
+use HTML::Entities qw(decode_entities);
+use HTML::Strip ();
 
 sub strip {
     my $str = shift;
