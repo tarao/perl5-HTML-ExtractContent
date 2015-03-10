@@ -1,4 +1,4 @@
-requires 'Class::Accessor::Lvalue::Fast';
+requires 'Class::Accessor::Lite';
 requires 'Exporter::Lite';
 requires 'HTML::Entities';
 requires 'HTML::Strip';

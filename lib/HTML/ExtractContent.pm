@@ -1,17 +1,25 @@
 package HTML::ExtractContent;
 use strict;
 use warnings;
-use HTML::ExtractContent::Util;
-use List::Util qw(reduce);
 use utf8;
-use base qw(Class::Accessor::Lvalue::Fast);
+
+# core
+use List::Util qw(reduce);
+
+# cpan
+use Class::Accessor::Lite (
+    rw => [qw(opt content)],
+);
+
+# lib
+use HTML::ExtractContent::Util;
+
 our $VERSION = '0.10';
-__PACKAGE__->mk_accessors(qw(opt content));
 
 sub new {
     my ($class, $opt) = @_;
-    my $self = $class->SUPER::new($opt);
-    $self->opt = {
+    my $self = bless {}, $class;
+    $self->{opt} = {
         threshold          => 60,   # threhold for score of clusters
         min_length         => 30,   # minimum length of blocks
         decay_factor       => 0.75, # decay factor for block scores
@@ -66,10 +74,10 @@ sub as_html {
 
 sub extract {
     my $self = shift;;
-    $self->content = shift;
+    $self->content(shift);
     if ($self->content =~ $self->opt->{nocontent}) {
         # frameset or redirect
-        $self->content = '';
+        $self->content('');
         return $self;
     }
     $self->_extract_title;
@@ -146,7 +154,7 @@ sub extract {
             score => $score,
         };
     }
-    $self->content = $best->{content};
+    $self->content($best->{content});
 
     return $self;
 }
@@ -172,7 +180,7 @@ sub _extract_title {
         $title = strip (strip_tags $1);
         if (length $title) {
             my $pat = $self->{pattern}->{headline};
-            $self->content =~ s/$pat/
+            $self->{content} =~ s/$pat/
                 (index $title, strip(strip_tags($2))) >= 0 ? "<div>$2<\/div>" : "$1"/igse;
         }
     }
@@ -181,22 +189,22 @@ sub _extract_title {
 sub _eliminate_head {
     my $self = shift;
     my $pat = $self->{pattern}->{head};
-    $self->content =~ s/$pat//is;
+    $self->{content} =~ s/$pat//is;
 }
 
 sub _eliminate_useless_symbols {
     my $self = shift;
     my $comment = $self->{pattern}->{comment};
     my $special = $self->{pattern}->{special};
-    $self->content =~ s/$comment//igs;
-    $self->content =~ s/$special//igs;
+    $self->{content} =~ s/$comment//igs;
+    $self->{content} =~ s/$special//igs;
 }
 
 sub _eliminate_useless_tags {
     my $self = shift;
     my @useless = @{$self->{pattern}->{useless}};
     for my $pat (@useless) {
-        $self->content =~ s/$pat//igs;
+        $self->{content} =~ s/$pat//igs;
     }
 }
 
