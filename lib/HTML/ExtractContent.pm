@@ -296,7 +296,7 @@ the text for example.
 
 =back
 
-=head1 ACKNOWLEDGEMENT
+=head1 ACKNOWLEDGMENT
 
 Hiromichi Kishi contributed towards development of this module
 as a partner of pair programming.
