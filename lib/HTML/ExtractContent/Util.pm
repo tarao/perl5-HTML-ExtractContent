@@ -3,9 +3,6 @@ use strict;
 use warnings;
 use utf8;
 
-# core
-use Encode qw/encode_utf8 decode_utf8/;
-
 # cpan
 use Exporter::Lite;
 use HTML::Entities qw(decode_entities);
