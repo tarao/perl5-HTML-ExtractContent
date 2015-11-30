@@ -19,12 +19,8 @@ sub strip {
 
 sub strip_tags {
     my $page = shift;
-
-    my $octets = encode_utf8($page);
     my $hs = HTML::Strip->new;
-    my $stripped = $hs->parse($octets);
-
-    return decode_utf8($stripped);
+    return $hs->parse($page);
 }
 
 sub eliminate_tags {
