@@ -3,9 +3,6 @@ use strict;
 use warnings;
 use utf8;
 
-# core
-use Encode qw/encode_utf8 decode_utf8/;
-
 # cpan
 use Exporter::Lite;
 use HTML::Entities qw(decode_entities);
@@ -19,12 +16,8 @@ sub strip {
 
 sub strip_tags {
     my $page = shift;
-
-    my $octets = encode_utf8($page);
     my $hs = HTML::Strip->new;
-    my $stripped = $hs->parse($octets);
-
-    return decode_utf8($stripped);
+    return $hs->parse($page);
 }
 
 sub eliminate_tags {
