@@ -68,9 +68,10 @@
          "web" : "https://github.com/tarao/perl5-HTML-ExtractContent"
       }
    },
-   "version" : "0.11",
+   "version" : "0.12",
    "x_authority" : "cpan:TARAO",
    "x_contributors" : [
-      "tarao <tarao.gnn@gmail.com>"
+      "yubessy <yubessy0@gmail.com>",
+      "INA Lintaro <tarao.gnn@gmail.com>"
    ]
 }
